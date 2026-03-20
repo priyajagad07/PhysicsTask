@@ -3,6 +3,7 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public float width;
+    public float height;
 
     void Awake()
     {
@@ -15,6 +16,7 @@ public class Building : MonoBehaviour
             bounds.Encapsulate(r.bounds);
         }
 
+        height = bounds.size.y;
         width = bounds.size.x;
     }
 }
