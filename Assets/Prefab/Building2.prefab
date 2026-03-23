@@ -2407,7 +2407,7 @@ Transform:
   m_GameObject: {fileID: 8581712297361905467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -2.79, z: 0}
+  m_LocalPosition: {x: 1, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2468,7 +2468,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.9940348, y: 0.9908266}
+  m_Offset: {x: 2.9940348, y: 4.44}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2478,7 +2478,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.9899378, y: 6.9976254}
+  m_Size: {x: 2.9899378, y: 0.1}
   m_EdgeRadius: 0
 --- !u!114 &3517086259003706833
 MonoBehaviour:
@@ -2493,6 +2493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Building
   width: 0
+  height: 0
 --- !u!1 &8962730159656677743
 GameObject:
   m_ObjectHideFlags: 0

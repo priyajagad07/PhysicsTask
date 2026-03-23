@@ -3,7 +3,7 @@ using UnityEngine;
 public class CoinSpawner : MonoBehaviour
 {
     public GameObject coinPrefab;
-    public int minCoins = 3;
+    public int minCoins = 2;
     public int maxCoins = 4;
     public float coinHeight = 1f;
 

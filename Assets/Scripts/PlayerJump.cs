@@ -7,7 +7,6 @@ public class PlayerJump : MonoBehaviour
     public float fallThreshold = -3f;
     private Rigidbody2D rb;
     private bool isGrounded;
-    private bool isGameOver = false;
 
     void Start()
     {
@@ -16,9 +15,6 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        if(isGameOver)
-            return;
-
         rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
         
         if (Input.GetMouseButtonDown(0) && isGrounded)
@@ -29,15 +25,8 @@ public class PlayerJump : MonoBehaviour
 
         if(transform.position.y < fallThreshold)
         {
-            GameOver();
+            GameManager.instance.GameOver(this);
         }
-    }
-
-    public void GameOver()
-    {
-        isGameOver = true;
-        rb.linearVelocity = Vector2.zero;
-        Debug.Log("Game Over");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -56,3 +45,4 @@ public class PlayerJump : MonoBehaviour
         }
     }
 }
+
