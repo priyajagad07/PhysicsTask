@@ -6,10 +6,32 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public static bool isGamePaused = false;
     public static bool isGameOver = false;
+    public float fallThreshold = -3f;
+    public PlayerJump playerJump;
+
+    public float difficultyTimer = 0f;
+    public float difficultyRate = 0.05f;
+    public float currentDifficulty = 0.1f;
 
     void Awake()
     {
         instance = this;
+        isGameOver = false;
+        isGamePaused = false;
+        Time.timeScale = 1f;
+    }
+
+    void Update()
+    {
+        if (!isGameOver)
+        {
+            difficultyTimer += Time.deltaTime;
+            currentDifficulty = difficultyTimer * difficultyRate;
+        }
+        if (!isGameOver && playerJump != null && playerJump.transform.position.y < fallThreshold)
+        {
+            GameOver(playerJump);
+        }
     }
 
     public void TogglePauseGame()
@@ -57,7 +79,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver(PlayerJump player)
     {
-        if(isGameOver)
+        if (isGameOver)
             return;
 
         isGameOver = true;
@@ -66,10 +88,11 @@ public class GameManager : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = 0f;
         rb.simulated = false;
-        
+
         ScreenManager.Instance.ShowPopup(ScreenType.GameOver);
         Debug.Log("Game Over");
     }
+
     public void RestartGame()
     {
         Time.timeScale = 1f;

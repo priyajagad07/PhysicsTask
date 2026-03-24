@@ -31,7 +31,9 @@ public class CoinSpawner : MonoBehaviour
             float x = startX + (spacing * i);
             float y = topY + 0.5f;
 
-            Instantiate(coinPrefab, new Vector3(x + 3.5f, y, 0), Quaternion.identity);
+            //Instantiate(coinPrefab, new Vector3(x + 3.5f, y, 0), Quaternion.identity);
+            GameObject coin = Instantiate(coinPrefab, new Vector3(x + 3.5f, y, 0), Quaternion.identity);
+            coin.transform.SetParent(building.transform);
         }
     }
 }

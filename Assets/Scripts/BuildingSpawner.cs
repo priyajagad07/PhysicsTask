@@ -40,7 +40,12 @@ public class BuildingSpawner : MonoBehaviour
         GameObject newBuilding = Instantiate(prefab);
         Building building = newBuilding.GetComponent<Building>();
 
-        float gap = Random.Range(minGap, maxGap);
+        //float gap = Random.Range(minGap, maxGap);
+
+        float difficulty = GameManager.instance.currentDifficulty;
+        float dynamicMinGap = minGap + (difficulty * 0.1f);
+        float dynamicMaxGap = maxGap + (difficulty * 0.15f);
+        float gap = Random.Range(dynamicMinGap, dynamicMaxGap);
 
         float spawnX = rightEdge + gap + (building.width / 2f);
         newBuilding.transform.position = new Vector3(spawnX, 0, 0);

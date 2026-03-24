@@ -7,6 +7,8 @@ public class PlayerJump : MonoBehaviour
     public float fallThreshold = -3f;
     private Rigidbody2D rb;
     private bool isGrounded;
+    private int jumpCount = 0;
+    public int maxJumps = 5; 
 
     void Start()
     {
@@ -15,18 +17,34 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
-        
-        if (Input.GetMouseButtonDown(0) && isGrounded)
+        if (GameManager.isGameOver)
+            return;
+
+        if (Input.GetMouseButtonDown(0) && jumpCount < maxJumps)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0.0f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            Jump();
         }
 
-        if(transform.position.y < fallThreshold)
+        if (transform.position.y < fallThreshold)
         {
             GameManager.instance.GameOver(this);
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (GameManager.isGameOver)
+            return;
+
+        rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
+    }
+
+    void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0.0f);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+        jumpCount++;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -34,10 +52,11 @@ public class PlayerJump : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            jumpCount = 0;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
@@ -45,4 +64,3 @@ public class PlayerJump : MonoBehaviour
         }
     }
 }
-
