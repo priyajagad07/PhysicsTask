@@ -6,7 +6,7 @@ public class Coin : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            CoinManager.instance.AddScore(1);
+            CoinManager.instance.AddCoins(1);
             Debug.Log("Coin destroyed");
             Destroy(gameObject);
         }

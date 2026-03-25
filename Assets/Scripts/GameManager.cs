@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
     public float fallThreshold = -3f;
     public PlayerJump playerJump;
 
-    public float difficultyTimer = 0f;
-    public float difficultyRate = 0.05f;
-    public float currentDifficulty = 0.1f;
+    public float baseSpeed = 1.5f;
+    public float speedIncrease = 0.5f;
+    public int coinsPerLevel = 10;
+    public float currentSpeed;
+
 
     void Awake()
     {
@@ -23,15 +25,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!isGameOver)
-        {
-            difficultyTimer += Time.deltaTime;
-            currentDifficulty = difficultyTimer * difficultyRate;
-        }
         if (!isGameOver && playerJump != null && playerJump.transform.position.y < fallThreshold)
         {
             GameOver(playerJump);
         }
+    }
+    public void UpdateSpeed(int coins)
+    {
+        int level = coins / coinsPerLevel;
+        currentSpeed = baseSpeed + (level * speedIncrease);
     }
 
     public void TogglePauseGame()

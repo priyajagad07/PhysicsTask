@@ -8,8 +8,8 @@ public class PlayerJump : MonoBehaviour
     private Rigidbody2D rb;
     private bool isGrounded;
     private int jumpCount = 0;
-    public int maxJumps = 5; 
-
+    public int maxJumps = 2;
+   
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,9 +17,6 @@ public class PlayerJump : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.isGameOver)
-            return;
-
         if (Input.GetMouseButtonDown(0) && jumpCount < maxJumps)
         {
             Jump();
@@ -33,10 +30,8 @@ public class PlayerJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.isGameOver)
-            return;
-
-        rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
+        float speed = GameManager.instance.currentSpeed;
+        rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
     }
 
     void Jump()
@@ -53,6 +48,8 @@ public class PlayerJump : MonoBehaviour
         {
             isGrounded = true;
             jumpCount = 0;
+
+            BuildingSpawner.instance.OnPlayerLanded();
         }
     }
 

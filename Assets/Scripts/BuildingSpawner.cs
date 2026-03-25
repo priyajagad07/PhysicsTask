@@ -14,8 +14,14 @@ public class BuildingSpawner : MonoBehaviour
     public float destroyDitsance = 15f;
 
     public float rightEdge;
+
+    public static BuildingSpawner instance;
     private List<GameObject> spawnedBuildings = new List<GameObject>();
 
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         Building building = lastBuilding.GetComponent<Building>();
@@ -24,14 +30,13 @@ public class BuildingSpawner : MonoBehaviour
         spawnedBuildings.Add(lastBuilding.gameObject);
     }
 
-    void Update()
+    public void OnPlayerLanded()
     {
-        if (player.position.x + spawnDistance > rightEdge)
+        if(player.position.x + spawnDistance > rightEdge)
         {
             SpawnBuilding();
+            DestroyOldBuildings();
         }
-
-        DestroyOldBuildings();
     }
 
     void SpawnBuilding()
@@ -40,12 +45,12 @@ public class BuildingSpawner : MonoBehaviour
         GameObject newBuilding = Instantiate(prefab);
         Building building = newBuilding.GetComponent<Building>();
 
-        //float gap = Random.Range(minGap, maxGap);
+        float gap = Random.Range(minGap, maxGap);
 
-        float difficulty = GameManager.instance.currentDifficulty;
-        float dynamicMinGap = minGap + (difficulty * 0.1f);
-        float dynamicMaxGap = maxGap + (difficulty * 0.15f);
-        float gap = Random.Range(dynamicMinGap, dynamicMaxGap);
+        // float difficulty = GameManager.instance.currentDifficulty;
+        // float dynamicMinGap = minGap + (difficulty * 0.1f);
+        // float dynamicMaxGap = maxGap + (difficulty * 0.15f);
+        // float gap = Random.Range(dynamicMinGap, dynamicMaxGap);
 
         float spawnX = rightEdge + gap + (building.width / 2f);
         newBuilding.transform.position = new Vector3(spawnX, 0, 0);

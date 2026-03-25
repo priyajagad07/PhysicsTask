@@ -4,6 +4,7 @@ public class Building : MonoBehaviour
 {
     public float width;
     public float height;
+    public Transform coinsParent;
 
     void Awake()
     {

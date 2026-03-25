@@ -12,9 +12,11 @@ public class CoinManager : MonoBehaviour
         instance = this;
     }
 
-    public void AddScore(int value)
+    public void AddCoins(int value)
     {
         coins += value;
         coinsText.text = "Coins: " + coins;
+
+        GameManager.instance.UpdateSpeed(coins);
     }
 }
