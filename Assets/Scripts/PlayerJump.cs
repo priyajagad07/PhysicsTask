@@ -32,6 +32,7 @@ public class PlayerJump : MonoBehaviour
     {
         float speed = GameManager.instance.currentSpeed;
         rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
+        Debug.Log("Speed: " + speed);
     }
 
     void Jump()

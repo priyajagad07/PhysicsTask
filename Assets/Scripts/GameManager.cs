@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
     public int coinsPerLevel = 10;
     public float currentSpeed;
 
-
     void Awake()
     {
         instance = this;
+        currentSpeed = baseSpeed;
         isGameOver = false;
         isGamePaused = false;
         Time.timeScale = 1f;
@@ -30,8 +30,13 @@ public class GameManager : MonoBehaviour
             GameOver(playerJump);
         }
     }
+    
     public void UpdateSpeed(int coins)
     {
+        if (coins > 80)
+        {
+            coins = 80;
+        }
         int level = coins / coinsPerLevel;
         currentSpeed = baseSpeed + (level * speedIncrease);
     }

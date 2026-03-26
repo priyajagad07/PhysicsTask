@@ -8,16 +8,9 @@ public class Building : MonoBehaviour
 
     void Awake()
     {
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
 
-        Bounds bounds = renderers[0].bounds;
-
-        foreach (Renderer r in renderers)
-        {
-            bounds.Encapsulate(r.bounds);
-        }
-
-        height = bounds.size.y;
-        width = bounds.size.x;
+        width = boxCollider2D.size.x;
+        height = boxCollider2D.size.y;
     }
 }
